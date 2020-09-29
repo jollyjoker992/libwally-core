@@ -88,6 +88,7 @@ docs/source/symmetric.rst
 docs/source/transaction.rst
 docs/source/elements.rst
 .idea/
+release
 
 # ctags
 tags

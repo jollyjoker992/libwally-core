@@ -14,6 +14,7 @@
 #include "../include/wally_elements.h"
 #include "../internal.h"
 #include <limits.h>
+#include "../include/wally_psbt.h"
 
 
 static int check_result(JNIEnv *jenv, int result)
@@ -362,6 +363,10 @@ static jbyteArray create_array(JNIEnv *jenv, const unsigned char* p, size_t len)
 %java_opaque_struct(wally_tx_input, 4);
 %java_opaque_struct(wally_tx_output, 5);
 %java_opaque_struct(wally_tx, 6);
+%java_opaque_struct(wally_map, 7);
+%java_opaque_struct(wally_psbt_input, 8);
+%java_opaque_struct(wally_psbt_output, 9);
+%java_opaque_struct(wally_psbt, 10);
 
 /* Our wrapped functions return types */
 %returns_void__(bip32_key_free);
@@ -677,6 +682,65 @@ static jbyteArray create_array(JNIEnv *jenv, const unsigned char* p, size_t len)
 %returns_size_t(wally_asset_pak_whitelistproof_size);
 %returns_size_t(wally_asset_pak_whitelistproof);
 
+%returns_struct(wally_map_init_alloc, wally_map);
+%rename("wally_psbt_map_init") wally_map_init_alloc;
+%returns_void__(wally_map_free);
+%rename("wally_psbt_map_free") wally_map_free;
+%returns_size_t(wally_map_find);
+%rename("wally_psbt_map_find") wally_map_find;
+%returns_void__(wally_map_add);
+%rename("wally_psbt_map_add") wally_map_add;
+%returns_void__(wally_map_add_keypath_item);
+%rename("wally_psbt_map_add_keypath_item") wally_map_add_keypath_item;
+%returns_void__(wally_map_sort);
+%rename("wally_psbt_map_sort") wally_map_sort;
+%returns_size_t(wally_psbt_input_is_finalized);
+%returns_void__(wally_psbt_input_set_utxo);
+%returns_void__(wally_psbt_input_set_witness_utxo);
+%returns_void__(wally_psbt_input_set_redeem_script);
+%returns_void__(wally_psbt_input_set_witness_script);
+%returns_void__(wally_psbt_input_set_final_scriptsig);
+%returns_void__(wally_psbt_input_set_final_witness);
+%returns_void__(wally_psbt_input_set_keypaths);
+%returns_size_t(wally_psbt_input_find_keypath);
+%returns_void__(wally_psbt_input_add_keypath_item);
+%returns_void__(wally_psbt_input_set_signatures);
+%returns_size_t(wally_psbt_input_find_signature);
+%returns_void__(wally_psbt_input_add_signature);
+%returns_void__(wally_psbt_input_set_unknowns);
+%returns_size_t(wally_psbt_input_find_unknown);
+%returns_void__(wally_psbt_input_set_sighash);
+%returns_void__(wally_psbt_output_set_redeem_script);
+%returns_void__(wally_psbt_output_set_witness_script);
+%returns_void__(wally_psbt_output_set_keypaths);
+%returns_size_t(wally_psbt_output_find_keypath);
+%returns_void__(wally_psbt_output_add_keypath_item);
+%returns_void__(wally_psbt_output_set_unknowns);
+%returns_size_t(wally_psbt_output_find_unknown);
+%returns_struct(wally_psbt_init_alloc, wally_psbt);
+%rename("wally_psbt_init") wally_psbt_init_alloc;
+%returns_void__(wally_psbt_free);
+%returns_size_t(wally_psbt_is_finalized);
+%returns_void__(wally_psbt_set_global_tx);
+%returns_void__(wally_psbt_add_input_at);
+%returns_void__(wally_psbt_remove_input);
+%returns_void__(wally_psbt_add_output_at);
+%returns_void__(wally_psbt_remove_output);
+%returns_struct(wally_psbt_from_bytes, wally_psbt);
+%returns_size_t(wally_psbt_get_length);
+%returns_size_t(wally_psbt_to_bytes);
+%returns_struct(wally_psbt_from_base64, wally_psbt);
+%returns_string(wally_psbt_to_base64);
+%returns_void__(wally_psbt_combine);
+%returns_struct(wally_psbt_clone_alloc, wally_psbt);
+%rename("wally_psbt_clone") wally_psbt_clone_alloc;
+%returns_void__(wally_psbt_sign);
+%returns_void__(wally_psbt_finalize);
+%returns_struct(wally_psbt_extract, wally_tx);
+%returns_size_t(wally_psbt_is_elements);
+%returns_struct(wally_psbt_elements_init_alloc, wally_psbt);
+%rename("wally_psbt_elements_init") wally_psbt_elements_init_alloc;
+
 %rename("_cleanup") wally_cleanup;
 %returns_void__(_cleanup)
 
@@ -692,3 +756,4 @@ static jbyteArray create_array(JNIEnv *jenv, const unsigned char* p, size_t len)
 %include "../include/wally_transaction.h"
 %include "transaction_int.h"
 %include "../include/wally_elements.h"
+%include "../include/wally_psbt.h"

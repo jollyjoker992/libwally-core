@@ -197,7 +197,7 @@ WALLY_CORE_API int wally_map_sort(
     struct wally_map *map_in,
     uint32_t flags);
 
-#ifndef SWIG
+// #ifndef SWIG
 /**
  * Determine if a PSBT input is finalized.
  *
@@ -488,7 +488,7 @@ WALLY_CORE_API int wally_psbt_output_find_unknown(
     const unsigned char *key,
     size_t key_len,
     size_t *written);
-#endif /* SWIG */
+// #endif /* SWIG */
 
 /**
  * Allocate and initialize a new PSBT.
